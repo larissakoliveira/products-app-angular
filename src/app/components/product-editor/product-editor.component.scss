@@ -1,0 +1,57 @@
+.product-editor {
+  padding: 16px;
+  
+  &__title {
+    color: var(--mat-primary-500);
+    margin: 0 0 24px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    
+    button {
+      min-width: 100px;
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin: 0 -8px;
+}
+
+.form-group {
+  margin: 0;
+  padding: 0 8px;
+  
+  &--half {
+    flex: 1;
+  }
+}
+
+:host ::ng-deep {
+  .mat-form-field-wrapper {
+    margin: 0;
+  }
+  
+  .mat-form-field-outline {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}

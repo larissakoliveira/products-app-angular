@@ -1,0 +1,89 @@
+<div class="product-editor">
+  <h2 class="product-editor__title">{{ isEditing ? 'Edit' : 'Create' }} Product</h2>
+  
+  <form #productForm="ngForm" (ngSubmit)="save()" class="product-editor__form">
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput
+               id="name"
+               name="name"
+               [(ngModel)]="product.name"
+               required>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput
+                  id="description"
+                  name="description"
+                  [(ngModel)]="product.description"
+                  rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group" *ngIf="!isEditing">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>SKU</mat-label>
+        <input matInput
+               id="sku"
+               name="sku"
+               [(ngModel)]="product.sku"
+               required>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Cost</mat-label>
+        <input matInput
+               type="number"
+               id="cost"
+               name="cost"
+               [(ngModel)]="product.cost"
+               required
+               min="0.01"
+               step="0.01">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <app-type-selector
+        [(ngModel)]="product.profile.type"
+        name="type"
+        required>
+      </app-type-selector>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group form-group--half">
+        <app-availability-toggle
+          [(ngModel)]="product.profile.available"
+          name="available">
+        </app-availability-toggle>
+      </div>
+
+      <div class="form-group form-group--half">
+        <app-backlog-spinner
+          [(ngModel)]="product.profile.backlog"
+          name="backlog"
+          [disabled]="!product.profile.available">
+        </app-backlog-spinner>
+      </div>
+    </div>
+
+    <div class="product-editor__actions">
+      <button mat-button type="button" (click)="cancel()">
+        Cancel
+      </button>
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!productForm.form.valid">
+        {{ isEditing ? 'Save' : 'Create' }}
+      </button>
+    </div>
+  </form>
+</div>
