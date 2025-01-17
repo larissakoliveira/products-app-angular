@@ -1,19 +1,153 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+// Custom Variables
+:root {
+  --primary-color: #D20072;
+  --accent-color: #019A96;
+  --text-light: #ffffff;
+  --text-dark: rgba(0, 0, 0, 0.87);
+  --border-radius: 4px;
+  --spacing-unit: 8px;
+}
 
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}/* You can add global styles to this file, and also import other style files */
+// Global Styles
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Material Design Overrides
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--text-light) !important;
+}
+
+.mat-mdc-raised-button.mat-accent {
+  background-color: var(--accent-color) !important;
+  color: var(--text-light) !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: var(--primary-color) !important;
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: var(--primary-color) !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--primary-color) !important;
+}
+
+// Dialog/Modal Styles
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: white;
+  
+  .mdc-dialog__surface {
+    padding: calc(var(--spacing-unit) * 3) !important;
+    border-radius: var(--border-radius) !important;
+    margin: var(--spacing-unit) !important;
+  }
+
+  .mdc-dialog__content {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+}
+
+// Form Styles
+.form-group {
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  
+  label {
+    display: block;
+    margin-bottom: var(--spacing-unit);
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: calc(var(--spacing-unit) * 2);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: var(--spacing-unit);
+  }
+
+  .form-group {
+    flex: 1;
+  }
+}
+
+.product-editor {
+  &__title {
+    color: var(--primary-color);
+    margin: 0 0 calc(var(--spacing-unit) * 3);
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  &__form {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: calc(var(--spacing-unit) * 1.5);
+    margin-top: calc(var(--spacing-unit) * 3);
+    padding-top: calc(var(--spacing-unit) * 2);
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+}
+
+// Utility Classes
+.text-center { text-align: center; }
+.mt-3 { margin-top: calc(var(--spacing-unit) * 3); }
+.mb-3 { margin-bottom: calc(var(--spacing-unit) * 3); }
+.w-100 { width: 100%; }
+
+// Responsive Adjustments
+@media (max-width: 600px) {
+  .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+      padding: calc(var(--spacing-unit) * 2);
+      margin: var(--spacing-unit);
+    }
+  }
+
+  .product-editor__title {
+    font-size: 20px;
+  }
+}
