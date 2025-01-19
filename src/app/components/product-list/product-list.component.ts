@@ -118,7 +118,7 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(ProductEditorComponent, {
       width: '90%',
       maxWidth: '600px',
-      disableClose: true,
+      disableClose: false,
       autoFocus: false,
       data: {}
     });
@@ -136,7 +136,7 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(ProductEditorComponent, {
       width: '90%',
       maxWidth: '600px',
-      disableClose: true,
+      disableClose: false,
       autoFocus: false,
       data: { product }
     });
