@@ -51,6 +51,10 @@ export class ProductEditorComponent {
         };
   }
 
+  onProfileChange(updatedProfile: any): void {
+    this.product.profile = updatedProfile;
+  }
+
   save(): void {
     this.dialogRef.close(this.product);
   }

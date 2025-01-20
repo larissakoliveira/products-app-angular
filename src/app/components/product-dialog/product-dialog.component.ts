@@ -94,7 +94,8 @@ export class ProductDialogComponent {
       cost: 0,
       profile: {
         type: 'furniture',
-        available: true
+        available: true,
+        backlog: 0
       }
     };
   }

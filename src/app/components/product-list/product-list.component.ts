@@ -28,7 +28,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
         </button>
       </div>
 
-      <table class="product-table mat-elevation-z2">
+      <table class="product-table">
         <thead>
           <tr>
             <th>Index</th>
@@ -39,30 +39,26 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
           </tr>
         </thead>
         <tbody>
-          @for (product of products; track product.id) {
-            <tr (click)="openEditDialog(product)">
-              <td>{{product.id}}</td>
-              <td>{{product.sku}}</td>
-              <td>{{product.name}}</td>
-              <td>{{product.cost | currency}}</td>
-              <td>
-                <button 
-                  mat-icon-button 
-                  color="primary"
-                  (click)="openEditDialog(product); $event.stopPropagation()"
-                >
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button 
-                  mat-icon-button 
-                  color="warn"
-                  (click)="confirmDelete(product); $event.stopPropagation()"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-            </tr>
-          }
+          <tr *ngFor="let product of products; trackBy: trackByProductId" class="table-row" (click)="openEditDialog(product)">
+            <td>{{product.id}}</td>
+            <td>{{product.sku}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.cost | currency}}</td>
+            <td>
+              <button 
+                mat-icon-button 
+                color="primary"
+                (click)="openEditDialog(product); $event.stopPropagation()">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button 
+                mat-icon-button 
+                color="warn"
+                (click)="confirmDelete(product); $event.stopPropagation()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -138,14 +134,32 @@ export class ProductListComponent implements OnInit {
       maxWidth: '600px',
       disableClose: false,
       autoFocus: false,
-      data: { product }
+      data: { product },
     });
-
-    dialogRef.afterClosed().subscribe(result => {
+  
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.productService.updateProduct(result.id, result).subscribe(() => {
-          this.loadProducts();
-        });
+        const updateData: Partial<Product> = {
+          name: result.name || product.name,
+          description: result.description || product.description,
+          cost: result.cost !== undefined ? result.cost : product.cost,
+          profile: {
+            type: result.profile?.type || product.profile.type,
+            available:
+              result.profile?.available !== undefined
+                ? result.profile.available
+                : product.profile.available,
+            backlog:
+              result.profile?.backlog !== undefined
+                ? result.profile.backlog
+                : product.profile.backlog,
+          },
+        };
+  
+        this.productService.updateProduct(product.id!, updateData).subscribe(
+          () => this.loadProducts(),
+          (error) => console.error('Error updating product:', error)
+        );
       }
     });
   }
@@ -167,4 +181,8 @@ export class ProductListComponent implements OnInit {
       }
     });
   }
+
+  trackByProductId(index: number, product: Product): number {
+    return product.id ?? -1;
+  }  
 }

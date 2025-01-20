@@ -37,11 +37,4 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.authToken.value;
   }
-
-  logout() {
-    this.authToken.next('');
-    if (this.isBrowser) {
-      localStorage.removeItem('authToken');
-    }
-  }
 }

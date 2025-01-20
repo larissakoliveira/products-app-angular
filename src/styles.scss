@@ -51,6 +51,7 @@ html, body {
     padding: calc(var(--spacing-unit) * 3) !important;
     border-radius: var(--border-radius) !important;
     margin: var(--spacing-unit) !important;
+    max-height: 90vh !important;
   }
 
   .mdc-dialog__content {
@@ -94,6 +95,19 @@ html, body {
   }
 }
 
+.product-table {
+  display: block;
+  overflow-x: auto;
+}
+
+.table-row {
+  border-bottom: #019A96 2px solid !important;
+}
+
+.actions {
+  display: grid;
+}
+
 .form-row {
   display: flex;
   gap: calc(var(--spacing-unit) * 2);
@@ -106,6 +120,11 @@ html, body {
   .form-group {
     flex: 1;
   }
+}
+
+.product-info-form {
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .product-editor {

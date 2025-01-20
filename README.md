@@ -44,7 +44,7 @@ The build artifacts will be stored in the `dist/` directory.
 
 ## Features
 
-- User authentication (login/logout)
+- User authentication (login)
 - Product management (CRUD operations)
 - Responsive design
 - Form validation

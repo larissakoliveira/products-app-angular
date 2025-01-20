@@ -16,8 +16,14 @@ export class ProductService {
   ) {}
 
   private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    
+    if (!token) {
+      console.error('Token not found');
+      return new HttpHeaders();
+    }
     return new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`
+      'Authorization': `Bearer ${token}`
     });
   }
 
